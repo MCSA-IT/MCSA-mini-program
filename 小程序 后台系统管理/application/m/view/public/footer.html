@@ -1,0 +1,31 @@
+<div class="links">
+    <div class="links__content w__1280">
+        <h3>友情链接：</h3>
+        <ul>
+            {volist name="link" id="vo"}
+            <li><a href="{$vo.url}" target="_blank">{$vo.title}</a></li>
+            {/volist}
+        </ul>
+    </div>
+</div>
+<footer>
+    <div class="footer w__1280">
+        <p>{$webinfo['footer_bq']}<br> {$webinfo['title']} 版权所有</p>
+        <p>地址：{$webinfo['addr']} <br> 电话：{$webinfo['tel']}</p>
+        <p><a href="{$webinfo['footer_ba_url']}">{$webinfo['footer_ba']}</a> 技术支持：<a href="{$webinfo['footer_jszc_url']}">{$webinfo['footer_jszc']}</a></p>
+    </div>
+</footer>
+<script>
+    var swiper = new Swiper('.dynamic .swiper-container', {
+        autoplay: {
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+</body>
+
+</html>

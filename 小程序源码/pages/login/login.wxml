@@ -1,0 +1,2 @@
+<button type='primary' wx:if="{{flag}}" style="margin-top:70%" bindgetphonenumber="handleGetPhone" open-type="getPhoneNumber">绑定手机号</button>
+<button type='primary' catch:tap="handleGetUserInfo" wx:else style="margin-top:70%">登录</button>

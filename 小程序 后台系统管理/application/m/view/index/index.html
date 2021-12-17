@@ -1,0 +1,235 @@
+{include file='public/header' /}
+<div class="dynamic w__1280">
+    <div class="titleall">
+        <img src="__IMAGES__/首页16-17_03.png">
+        <h3>工作动态</h3>
+        <h6>Dynamic work</h6>
+    </div>
+    <div class="dynamic__box">
+        <div class="dynamic__left">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {volist name="work_dt" id="vo"}
+                    <div class="swiper-slide">
+                        <a href="{:url('index/details',['cata_id'=>2,'id'=>$vo.id])}">
+                            <img src="{$vo.img}">
+                            <div class="dynamic__left__shadow">
+                                <p>{$vo.name}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {/volist}
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div class="dynamic__right">
+            <ul class="dynamic__title">
+                <li class="dynamic__active">{:cata(12)}</li>
+                <li>{:cata(13)}</li>
+            </ul>
+            <div class="dynamic__content">
+                <div class="dynamic__heap dynamic__active">
+                    <ul>
+                        <li>
+                            {volist name="work_yj" id="vo"}
+                            <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                                <p>{$vo.name}</p>
+                                <p>{$vo.create_time|date='Y-m-d'}</p>
+                            </a>
+                            {/volist}
+                        </li>
+                    </ul>
+                </div>
+                <div class="dynamic__heap">
+                    <ul>
+                        <li>
+                            {volist name="work_hy" id="vo"}
+                            <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                                <p>{$vo.name}</p>
+                                <p>{$vo.create_time|date='Y-m-d'}</p>
+                            </a>
+                            {/volist}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="research w__1280">
+    <div class="titleall">
+        <img src="__IMAGES__/首页16-17_07.png">
+        <h3>国际税收研究</h3>
+        <h6>International tax research</h6>
+    </div>
+    <div class="research__content">
+        <div class="research__left">
+            <div class="research__more">
+                <h4>{:cata(14)}</h4>
+                <a href="{:url('index/news',['cata_id'=>14])}">MORE+</a>
+            </div>
+            <div class="research__heap">
+                {volist name="gj_xs" id="vo"}
+                <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                    <p>{$vo.name}</p>
+                    <img id="tp" src="{if $vo.new==1}__IMAGES__/首页16-17_03111_03.png{/if}">
+                    <p>{$vo.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+        <div class="research__right">
+            <div class="research__more">
+                <h4>{:cata(15)}</h4>
+                <a href="{:url('index/news',['cata_id'=>15])}">MORE+</a>
+            </div>
+            <div class="research__heap">
+                {volist name="gj_kt" id="vo"}
+                <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                    <p>{$vo.name}</p>
+                    <img id="tp" src="{if $vo.new==1}__IMAGES__/首页16-17_03111_03.png{/if}">
+                    <p>{$vo.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+    <img class="p20" src="__IMAGES__/首页16-17_03.jpg">
+    <div class="research__block">
+        <div class="research__box">
+            <div class="research__box_title">
+                <div class="research__img img--one">
+                    <p>{:cata(23)}</p>
+                </div>
+                <a href="{:url('index/news',['cata_id'=>23])}">MORE+</a>
+            </div>
+            <div class="research__box_list">
+                {volist name="sw1" id="vo"}
+                <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                    <p>{$vo.name}</p>
+                    <p>{$vo.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+        <div class="research__box">
+            <div class="research__box_title">
+                <div class="research__img img--two">
+                    <p>{:cata(16)}</p>
+                </div>
+                <a href="{:url('index/news',['cata_id'=>16])}">MORE+</a>
+            </div>
+            <div class="research__box_list">
+                {volist name="sw2" id="vo"}
+                <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                    <p>{$vo.name}</p>
+                    <p>{$vo.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+        <div class="research__box">
+            <div class="research__box_title">
+                <div class="research__img img--three">
+                    <p>{:cata(17)}</p>
+                </div>
+                <a href="{:url('index/news',['cata_id'=>17])}">MORE+</a>
+            </div>
+            <div class="research__box_list">
+                {volist name="sw3" id="vo"}
+                <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                    <p>{$vo.name}</p>
+                    <p>{$vo.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="guide-survey w__1280">
+    <div class="guide">
+        <div class="titleall">
+            <img src="__IMAGES__/首页16-17_11.png">
+            <h3>走出去税收指南</h3>
+            <h6>Go out tax guide</h6>
+        </div>
+        <ul class="guide__title">
+            <li class="guide__active">{:cata(19)}</li>
+            <li>{:cata(20)}</li>
+        </ul>
+        <div class="guide__content">
+            <div class="guide__heap guide__active">
+                <ul>
+                    <li>
+                        {volist name="sw4" id="vo"}
+                        <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                            <p>{$vo.name}</p>
+                            <p>{$vo.create_time|date='Y-m-d'}</p>
+                        </a>
+                        {/volist}
+                    </li>
+                </ul>
+            </div>
+            <div class="guide__heap">
+                <ul>
+                    <li>
+                        {volist name="sw5" id="vo"}
+                        <a href="{:url('index/details',['cata_id'=>$vo.article_category_id,'id'=>$vo.id])}">
+                            <p>{$vo.name}</p>
+                            <p>{$vo.create_time|date='Y-m-d'}</p>
+                        </a>
+                        {/volist}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="survey">
+        <div class="titleall">
+            <img src="__IMAGES__/首页16-17_14.png">
+            <h3>研究会概况</h3>
+            <h6>Study association profile</h6>
+        </div>
+        <ul>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>6])}">
+                    <img src="__IMAGES__/首页16-17_19.png">
+                    <p>{:cata(6)}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>7])}">
+                    <img src="__IMAGES__/首页16-17_2211_22.png">
+                    <p>{:cata(7)}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>8])}">
+                    <img src="__IMAGES__/首页16-17_27.png">
+                    <p>{:cata(8)}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>9])}">
+                    <img src="__IMAGES__/首页16-17_34.png">
+                    <p>{:cata(9)}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>10])}">
+                    <img src="__IMAGES__/首页16-17_31.png">
+                    <p>{:cata(10)}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('index/active',['cata_id'=>11])}">
+                    <img src="__IMAGES__/首页16-17_40.png">
+                    <p>{:cata(11)}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{include file='public/footer' /}

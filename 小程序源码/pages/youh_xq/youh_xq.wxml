@@ -1,0 +1,34 @@
+<!--pages/youh_xq/youh_xq.wxml-->
+<view class="preferential_header row_center">
+    <view class="row_bw t_pre_card">
+        <!-- 已领取 -->
+        <view class="t" wx:if="{{userInfo.is_member=='1'}}">您已是学联会员，尽情享受优惠吧~</view>
+        <block wx:else>
+            <view class="t">享受学联专属优惠，领取您的会员卡</view>
+            <navigator class="clt_pre_bu" catch:tap="goVip" url="" open-type="navigate">去领取</navigator>
+        </block>
+    </view>
+    <image class="pre_img" src="/images/yh.png"></image>
+</view>
+<view class="preferential_details">
+    <view class="prefer_logo"><image src="{{obj.img}}"></image></view>
+    <view class="prefer_infor">
+        <view class="row_nostart p_in_t">
+            <image src="/images/jiaqian.svg"></image>
+            <text user-select>{{obj.content}}</text>
+        </view>
+        <view class="row_start p_in_t">
+            <image src="/images/dianh.svg"></image>
+            <text user-select>{{obj.tel}}</text>
+            <view class="cl" data-tel='{{obj.tel}}' catch:tap="handlePhone">拨打电话</view>
+        </view>
+        <view class="row_start p_in_t">
+            <image src="/images/weixin.svg"></image>
+            <text user-select>{{obj.wx}}</text>
+        </view>
+        <view class="row_start p_in_t">
+            <image src="/images/weizhi.svg"></image>
+            <text user-select>{{obj.addr}}</text>
+        </view>
+    </view>
+</view>

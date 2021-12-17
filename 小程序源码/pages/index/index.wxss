@@ -1,0 +1,174 @@
+/**index.wxss**/
+
+.index_header {
+    width: 100%;
+    height: 380rpx;
+    position: relative;
+}
+
+.index_header .header_bg {
+    width: 100%;
+    position: absolute;
+}
+
+.logo {
+    width: 370rpx;
+    height: 84rpx;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30rpx;
+}
+
+.hea_time {
+    position: absolute;
+    z-index: 1;
+    left: 30rpx;
+    top: 150rpx;
+}
+
+.date_time {
+    font-size: 40rpx;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.weather {
+    margin-top: 20rpx;
+}
+
+.weather>view {
+    font-size: 24rpx;
+    color: #ffffff;
+    line-height: 40rpx;
+}
+
+.weather image {
+    width: 40rpx;
+    height: 40rpx;
+    display: block;
+    margin-right: 10rpx;
+}
+
+.banner {
+    margin: -80rpx 30rpx 0 30rpx;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.banner .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.banner .dots .dot {
+    margin: 0 8rpx;
+    width: 14rpx;
+    height: 14rpx;
+    background-color: #dbdbdb;
+    border-radius: 8rpx;
+    transition: all 0.6s ease-in-out;
+}
+
+.banner .dots .dot.active {
+    width: 34rpx;
+    background: #dbdbdb;
+}
+
+.swiper {}
+
+.swiper_dot {
+    margin-top: 20rpx;
+}
+
+.swiper_list {
+    border-radius: 10rpx;
+    position: relative;
+}
+
+.t_heig {
+    width: 100%;
+    height: 312rpx;
+    position: relative;
+    border-radius: 10rpx;
+    overflow: hidden;
+}
+
+.swiper_list .swi_text {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    color: #ffffff;
+    padding: 0 20rpx;
+    line-height: 50rpx;
+    font-size: 26rpx;
+    height: 50rpx;
+}
+
+.swiper_list image {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+}
+
+.activities {
+    padding: 0 30rpx;
+    display: block;
+}
+
+.activities .act_list {
+    margin-bottom: 50rpx;
+    flex-wrap: wrap;
+}
+
+.activities .act_list .act_img {
+    width: 112rpx;
+    height: 150rpx;
+    overflow: hidden;
+    border-radius: 10rpx;
+}
+
+.activities .act_list .act_img image {
+    width: 100%;
+    height: 100%;
+}
+
+.activities .act_list .act_right {
+    margin-left: 20rpx;
+    position: relative;
+    width: calc(100% - 132rpx);
+    height: 150rpx;
+}
+
+.activities .act_list .act_right .h1 {
+    font-size: 28rpx;
+    color: #333333;
+}
+
+.activities .act_list .act_right text {
+    display: block;
+    color: #666666;
+    font-size: 24rpx;
+    padding-top: 10rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activities .act_list .act_right .m_time {
+    font-size: 23rpx;
+    color: #999999;
+    position: absolute;
+    bottom: 0;
+}

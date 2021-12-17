@@ -1,0 +1,226 @@
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<!--数据列表页面-->
+<section class="content">
+
+    <!--顶部搜索筛选-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <form class="form-inline searchForm" id="searchForm" action="{:url('index')}" method="GET">
+
+                        <div class="form-group">
+                            <input value="{$_keywords ? $_keywords : '' ;}"
+                                   name="_keywords" id="_keywords" class="form-control input-sm" placeholder="溯源码">
+                        </div>
+                        <div class="form-group">
+                            <select name="product_state" id="product_state" class="form-control input-sm index-order">
+                                <option value="">产品状态</option>
+                                <option value="0" {if isset($product_state) && $product_state=='0'}selected{/if}>待完善</option>
+                                <option value="1" {if isset($product_state) && $product_state=='1'}selected{/if}>已完善</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+
+<!--                        <div class="form-group">-->
+<!--                            <button onclick="exportData_new()" class="btn btn-sm btn-warning exportData" type="button"><i-->
+<!--                                    class="fa fa-search"></i> 筛选导出二维码-->
+<!--                            </button>-->
+<!--                        </div>-->
+
+                        <div class="form-group">
+                            <button onclick="exportData_two()" class="btn btn-sm btn-warning exportData" type="button" style="background-color: green" data-confirm-content="您确定要将选中的数据生成二维码吗？"><i
+                                    class="fa fa-search"></i> 导出剩余二维码(剩余：{$export_ewm_num})
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i
+                                    class="fa  fa-eraser"></i> 清空查询
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+
+                <!--数据列表顶部-->
+                <div class="box-header">
+                    <div>
+                        <a title="生成溯源码" data-toggle="tooltip" class="btn btn-primary btn-sm " href="javascript:;" onclick="ajaxpost()">
+                             生成溯源码
+                        </a>
+<script>
+    function ajaxpost(){
+        layer.prompt('123',function(val, index){
+            var ex = /^\d+$/;
+            if(ex.test(val)&&val<=5000){
+                var data = {num:val};
+                layer.load();
+                $.post("/admin/web_product/add_code",data,function(data,status){
+                    layer.closeAll();
+                    if(data.code=="1"){
+                        layer.msg('操作成功', {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function(){
+                            //$.pjax.reload();刷新当前页
+                            window.location.reload()
+                            layer.close(index);
+                        });
+                    }else{
+                        layer.msg("系统繁忙，请重新生成溯源码");
+                    }
+                });
+
+            }else{
+                layer.msg("请输入生成条数，小于5000的整数");
+            }
+        });
+    }
+</script>
+                        <a class="btn btn-primary btn-sm AjaxButton" data-toggle="tooltip" title="生成二维码"
+                           data-confirm-title="生成二维码确认" data-confirm-content="您确定要将选中的数据生成二维码吗？" data-id="checked"
+                           data-url="{:url('ewm')}">
+                            生成二维码
+                        </a>
+                        <a class="btn btn-primary btn-sm AjaxButtonnew" data-toggle="tooltip" title="生成剩余二维码"
+                           data-confirm-title="生成剩余二维码确认" data-confirm-content="您确定要将剩余{$ewm_num}条生成二维码吗？（一次生成200条）" data-id="checked"
+                           data-url="{:url('ewm_all')}" style="background-color: green">
+                            生成二维码(剩余：{$ewm_num})
+                        </a>
+<!--                        <a title="生成溯源码" data-toggle="tooltip" class="btn btn-primary btn-sm " href="javascript:;" onclick="ajaxpostewm()">-->
+<!--                            生成二维码-->
+<!--                        </a>-->
+<!--                        <script>-->
+<!--                            function ajaxpostewm(){-->
+<!--                                layer.prompt('123',function(val, index){-->
+<!--                                    var ex = /^\d+$/;-->
+<!--                                    var ewm_num = {$ewm_num};-->
+<!--                                    if(ewm_num<=5000){-->
+<!--                                        var num = ewm_num;-->
+<!--                                    }else{-->
+<!--                                        var num = 5000;-->
+<!--                                    }-->
+<!--                                    alert(num)-->
+<!--                                    if(ex.test(val)&&val<=num){-->
+<!--                                        var data = {num:val};-->
+<!--                                        $.post("/admin/web_product/ewm_all",data,function(data,status){-->
+<!--                                            if(data.code=="1"){-->
+<!--                                                layer.msg('操作成功', {-->
+<!--                                                    icon: 1,-->
+<!--                                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）-->
+<!--                                                }, function(){-->
+<!--                                                    //$.pjax.reload();刷新当前页-->
+<!--                                                    window.location.reload()-->
+<!--                                                    layer.close(index);-->
+<!--                                                });-->
+<!--                                            }else{-->
+<!--                                                layer.msg("操作失败");-->
+<!--                                            }-->
+<!--                                        });-->
+<!--                                    }else{-->
+<!--                                        layer.msg("请输入生成条数，小于5000的整数");-->
+<!--                                    }-->
+<!--                                });-->
+<!--                            }-->
+<!--                        </script>-->
+<!--                        <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm " href="{:url('add')}">-->
+<!--                            <i class="fa fa-plus"></i> 添加-->
+<!--                        </a>-->
+                        <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据"
+                           data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked"
+                           data-url="{:url('del')}">
+                            <i class="fa fa-trash"></i> 删除
+                        </a>
+
+                        <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新">
+                            <i class="fa fa-refresh"></i> 刷新
+                        </a>
+                    </div>
+                </div>
+
+                <div class="box-body table-responsive">
+                    <table class="table table-hover table-bordered datatable" width="100%">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input id="dataCheckAll" type="checkbox" onclick="checkAll(this)" class="checkbox"
+                                       placeholder="全选/取消">
+                            </th>
+                            <th>ID</th>
+                            <th>溯源码</th>
+<!--                            <th>封面图</th>-->
+                            <th>二维码</th>
+                            <th>产品状态</th>
+                            <th>导出状态</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach name='data' id='item' key='data_key'}
+                        <tr>
+                            <td>
+                                <input type="checkbox" onclick="checkThis(this)" name="data-checkbox"
+                                       data-id="{$item.id}" class="checkbox data-list-check" value="{$item.id}"
+                                       placeholder="选择/取消">
+                            </td>
+                            <td>{$item.id}</td>
+                            <td>{$item.code}</td>
+<!--                            <td><img class="dataListImg" src="{$item.img}"></td>-->
+                            <td><a href="{$item.ewm}" target="_blank"><img class="dataListImg" src="{$item.ewm}"></a></td>
+                            <td>{if $item['img_arr']==''||$item['ms']==''}<span style="color: red">待完善</span>{else/}<span style="color: green">已完善</span>{/if}</td>
+                            <td>{if $item['export_type']==0}<span style="color: red">未导出</span>{else/}<span style="color: green">已导出</span>{/if}</td>
+                            <td>{$item.create_time}</td>
+                            <td class="td-do">
+                                <a href="{:url('edit',['id'=>$item.id])}"
+                                   class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
+                                   data-id="{$item.id}" data-confirm-title="删除确认"
+                                   data-confirm-content='您确定要删除ID为 <span class="text-red">{$item.id}</span> 的数据吗'
+                                   data-url="{:url('del')}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 数据列表底部 -->
+                <div class="box-footer">
+                    {$page|raw}
+                    <label class="control-label pull-right" style="margin-right: 10px; font-weight: 100;">
+                        <small>共{$total}条记录</small>&nbsp;
+                        <small>每页显示</small>
+                        <select class="input-sm" onchange="changePerPage(this)">
+                            <option value="10" {if $admin.per_page==10}selected{/if}>10</option>
+                            <option value="20" {if $admin.per_page==20}selected{/if}>20</option>
+                            <option value="30" {if $admin.per_page==30}selected{/if}>30</option>
+                            <option value="50" {if $admin.per_page==50}selected{/if}>50</option>
+                            <option value="100" {if $admin.per_page==100}selected{/if}>100</option>
+                        </select>
+                        <small>条记录</small>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{/block}
+

@@ -1,0 +1,123 @@
+{include file='public/header' /}
+<div class="crumbs w__1280">
+</div>
+<div class="currency w__1280">
+    <div class="currency__right ">
+        <div class="currency__title">
+            <h4>{$navpid['now_title']}</h4>
+        </div>
+        <div class="currency__content list__all">
+            <div class="list__all__heap newsContent">
+                {volist name='list' id='user'}
+                <a href="{:url('index/details',['cata_id'=>$user.article_category_id,'id'=>$user.id])}">
+                    <p>{$user.name}</p>
+                    <img id="tp" src="{if $user.new==1}__IMAGES__/首页16-17_03111_03.png{/if}">
+                    <p>{$user.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="page" value="1">
+<script type="text/javascript">
+    function getAjax(id,page,total){
+        var form = layui.form
+            ,layer = layui.layer;
+        $.ajax({
+            url: '/m/index/news',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                cata_id: id,
+                page: page,
+                total: total
+            },
+            beforeSend: function () {
+                loadIndex = layer.load();
+            },
+            success: function (res) {
+                console.log(res)
+                if (res.code == 1) {
+                    var html = '';
+                    $.each(res.data.data, function(name, value) {
+                            html += '<a href="{:url(\'index/details\',[\'cata_id\'=>\'article_category_id\',\'id\'=>\'th_id\'])}"><p>'+value.name+'</p>';
+                        if(value.new == 1){
+                            html += '<img id="tp" src="__IMAGES__/首页16-17_03111_03.png">';
+                        }else{
+                            html += '<img id="tp" src="">';
+                        }
+                        var a = value.create_time;
+                        var b = a.substring(0, 10);
+                        html += '<p>'+b+'</p></a>';
+                        html = html.replace('article_category_id',value.article_category_id);
+                        html = html.replace('th_id',value.id);
+                    });
+                    $(".newsContent").append(html);
+                    if(total==page){
+                        $(".newsContent").append('<div>没有更多了</div>');
+                    }
+                }
+            },
+            complete: function () {
+                layer.close(loadIndex);
+            }
+        })
+    }
+    var preScrollHeight=0;//上一页的滚动条高度
+    var id = {$Request.param.cata_id};
+    var page = $("#page").val();
+    var total = {$total};
+    $(window).bind("scroll", function () {
+        if(getScrollHeight() < getDocumentTop() + getWindowHeight() + 100){
+            if(getScrollHeight()>preScrollHeight){
+                page++
+                if(page<=total){
+                    getAjax(id,page,total);
+                    $("#page").val(page)
+                }
+                preScrollHeight=getScrollHeight()
+            }
+        }
+    });
+
+    //文档高度
+    function getDocumentTop() {
+        var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+        if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }
+        scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+        console.log("scrollTop:"+scrollTop);
+        return scrollTop;
+    }
+    //可视窗口高度
+    function getWindowHeight() {
+        var windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }
+        console.log("windowHeight:"+windowHeight);
+        return windowHeight;
+    }
+
+    //滚动条滚动高度
+    function getScrollHeight() {
+        var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }
+        scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+        console.log("scrollHeight:"+scrollHeight);
+        return scrollHeight;
+    }
+</script>
+{include file='public/footer' /}

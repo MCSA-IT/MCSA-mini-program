@@ -1,0 +1,42 @@
+<block wx:if="{{showFlag}}">
+<view class="preferential_header row_center">
+    <view class="row_bw t_pre_card">
+        <!-- 已领取 -->
+        <view class="t" wx:if="{{userInfo.is_member=='1'}}">您已是学联会员，尽情享受优惠吧~</view>
+        <block wx:else>
+            <view class="t">享受学联专属优惠，领取您的会员卡</view>
+            <navigator catch:tap="goVip" class="clt_pre_bu" url="" open-type="navigate">
+                去领取
+            </navigator>
+        </block>
+    </view>
+    <image class="pre_img" src="/images/yh.png"></image>
+</view>
+<view class="preferential_content">
+    <view class="search_box row_start">
+        <image class="search_img" src="/images/search.png"></image>
+        <input type="text" value="{{searchValue}}" catchinput="handleInput" style="width: 100%;padding-right: 10rpx;" placeholder="请输入搜索名称" />
+        <text class="search_btn" wx:if="{{flag}}" catch:tap="handleSearch">搜索</text>
+    </view>
+    <view class="preferential_box">
+        <!-- 1 -->
+        <navigator wx:for="{{list}}" wx:key="index" class="preferential_list row_nostart" url="{{'../youh_xq/youh_xq?id='+item.id}}" open-type="navigate">
+            <view class="prefer_img">
+                <image src="{{item.img}}"></image>
+            </view>
+            <view class="prefer_right">
+                <view class="h1">{{item.title}}</view>
+                <view class="row_start ph_l">
+                    <image src="/images/phone.svg"></image>
+                    <text>{{item.tel}}</text>
+                </view>
+                <view class="l_text">{{item.content}}</view>
+            </view>
+        </navigator>
+    </view>
+</view>
+</block>
+<view class="no_login" wx:else>
+    <navigator url='/pages/login/login'>登录</navigator>
+    <text>后可查看哦~</text>
+</view>

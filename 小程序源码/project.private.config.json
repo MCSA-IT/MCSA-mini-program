@@ -1,0 +1,71 @@
+{
+    "setting": {},
+    "condition": {
+        "plugin": {
+            "list": []
+        },
+        "game": {
+            "list": []
+        },
+        "gamePlugin": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "pages/xyh/xyh",
+                    "pathName": "pages/xyh/xyh",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/youh/yh",
+                    "pathName": "pages/youh/yh",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/my/my",
+                    "pathName": "pages/my/my",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/my_ receive/my_ receive",
+                    "pathName": "pages/my_ receive/my_ receive",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/login",
+                    "pathName": "pages/login/login",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/index_box/activities/activities",
+                    "pathName": "pages/index_box/activities/activities",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/index_box/activities_xq/activities_xq",
+                    "pathName": "pages/index_box/activities_xq/activities_xq",
+                    "query": "id=1",
+                    "scene": null
+                },
+                {
+                    "name": "pages/youh_xq/youh_xq",
+                    "pathName": "pages/youh_xq/youh_xq",
+                    "query": "id=10",
+                    "scene": null
+                },
+                {
+                    "name": "pages/xyh/xyh",
+                    "pathName": "pages/xyh/xyh",
+                    "scene": null
+                }
+            ]
+        }
+    }
+}

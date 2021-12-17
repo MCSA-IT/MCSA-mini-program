@@ -1,0 +1,14 @@
+<wxs module='filter' src='/lib/filter.wxs'></wxs>
+
+<view class="act_bg">
+    <view class="act_bigimg">
+        <image src="{{obj.img}}"></image>
+    </view>
+    <view class="act_introduce">
+        <text class="ac_timg">{{filter.delHour(obj.create_time)}}</text>
+        <view class="ac_h1">{{obj.title}}</view>
+        <view class="ac_text">{{obj.des}}</view>
+    </view>
+    <button class="act_bm" catch:tap="handleSign" wx:if="{{obj.is_signup==0}}">报名</button>
+    <button class="act_bm" style="background: #ccc" wx:if="{{obj.is_signup==1}}">已报名</button>
+</view>

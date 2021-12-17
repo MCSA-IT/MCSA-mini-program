@@ -1,0 +1,216 @@
+{extend name='public/base' /}
+{block name='content'}
+{include file='public/content_header' /}
+<script type="text/javascript" src="/static/admin/plugins/fileinput/js/plugins/sortable.min.js"></script>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <!-- 表单头部 -->
+<!--                <div class="box-header with-border">-->
+<!--                    <div class="btn-group">-->
+<!--                        <a class="btn flat btn-sm btn-default BackButton">-->
+<!--                            <i class="fa fa-arrow-left"></i>-->
+<!--                            返回-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!-- 表单 -->
+                <form id="dataForm" class="form-horizontal dataForm" action="" method="post"
+                      enctype="multipart/form-data">
+                    <!-- 表单字段区域 -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">标题</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="title" name="title" value="{$data.title|default=''}" placeholder="请输入标题"
+                                       type="text" class="form-control field-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ms" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10 col-md-4">
+                                <textarea id="ms" name="ms" class="form-control" rows="3" placeholder="请输入描述">{$data.ms|default=''}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content" class="col-sm-2 control-label">博物馆简介</label>
+                            <div class="col-sm-10">
+                                <script id="content" name="content" type="text/plain">{$data.content|raw|default=''}
+                                </script>
+                            </div>
+                        </div>
+                        <script>
+                            UE.delEditor('content');
+                            var UE_content = UE.getEditor('content', {
+                                serverUrl: UEServer
+                            });
+                        </script>
+                        <div class="form-group">
+                            <label for="content1" class="col-sm-2 control-label">人物简介</label>
+                            <div class="col-sm-10">
+                                <script id="content1" name="content1" type="text/plain">
+                                    {$data.content1|raw|default=''}
+                                </script>
+                            </div>
+                        </div>
+                        <script>
+                            UE.delEditor('content1');
+                            var UE_content1 = UE.getEditor('content1', {
+                                serverUrl: UEServer
+                            });
+                        </script>
+                        <div class="form-group">
+                            <label for="video" class="col-sm-2 control-label">多视频上传</label>
+                            <div class="col-sm-8">
+                                <input id="video" name="video[]"  placeholder="请上传多视频上传" multiple="multiple" type="file" class="form-control field-multi-file" >
+                            </div>
+                        </div>
+                        <script>
+                            $(function () {
+                                var video = {$data->getData('video') | raw};
+                                var initialPreviewConfig = [];
+                                $.each(video,function(index,value){
+                                    initialPreviewConfig.push({ url: "/admin/web_about/delvideo", key: index,type:"video",filetype:'video/mp4'})
+                                });
+                                console.log({$data['id']})
+                                $('#video').fileinput({
+                                    "initialPreview": false,
+                                    overwriteInitial: false,
+                                    language: 'zh',
+                                    browseLabel: '浏览',
+                                    initialPreviewAsData: true,
+                                    initialPreviewShowDelete: false,
+                                    dropZoneEnabled: false,
+                                    showUpload: false,
+                                    showRemove: false,
+                                    allowedFileExtensions: ['mp4'],
+                                    dropZoneEnabled: false,//是否显示拖拽区域
+                                    //默认限制10MallowedFileTypes
+                                    maxFileSize: 10240,
+
+                                    {if isset($data)}
+                                    initialPreview:video,
+                                        {/if}
+                                    initialPreviewConfig: initialPreviewConfig
+                                }).on('filesorted', function(e, params) {
+                                    console.log('File sorted params', params['stack']);
+                                    //console.log('File sorted params123', e);
+                                    $.post("/admin/web_about/videopaixu",params,function(data,status){
+                                        //alert("Data: " + data + "nStatus: " + status);
+                                    });
+
+                                }).fileinput("enable");
+                            })
+                        </script>
+
+
+
+                        <div class="form-group">
+                            <label for="img" class="col-sm-2 control-label">多图片</label>
+                            <div class="col-sm-10 col-md-4">
+                                <input id="img" name="img[]" placeholder="请上传多图片" multiple="multiple" type="file"
+                                       class="form-control field-multi-image">
+                            </div>
+                        </div>
+                        <script>
+                            $(function () {
+                                var img = {$data->getData('img') | raw};
+                                var initialPreviewConfig = [];
+                                $.each(img,function(index,value){
+                                    initialPreviewConfig.push({ url: "/admin/web_about/delimg", key: index})
+                                });
+                                console.log({$data['id']})
+                                $('#img').fileinput({
+                                    "initialPreview": false,
+                                    overwriteInitial: false,
+                                    language: 'zh',
+                                    browseLabel: '浏览',
+                                    initialPreviewAsData: true,
+                                    initialPreviewShowDelete: false,
+                                    dropZoneEnabled: true,
+                                    showUpload: false,
+                                    showRemove: false,
+                                    showDrag: true,
+                                    dragClass: 'text-info',
+                                    allowedFileTypes: ['image'],
+                                    //默认限制10M
+                                    maxFileSize: 10240,
+                                    uploadAynsc:false,
+                                    {if isset($data)}
+                                    initialPreview:img,
+                                        {/if}
+                                    initialPreviewConfig: initialPreviewConfig
+                                }).on('filesorted', function(e, params) {
+                                    console.log('File sorted params', params['stack']);
+                                    //console.log('File sorted params123', e);
+                                    $.post("/admin/web_about/imgpaixu",params,function(data,status){
+                                        //alert("Data: " + data + "nStatus: " + status);
+                                    });
+
+                                }).fileinput("enable");
+                            })
+                        </script>
+
+                    </div>
+                    <!-- 表单底部 -->
+                    <div class="box-footer">
+                        {:token()}
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-10 col-md-4">
+                            {if !isset($data)}
+                            <div class="btn-group pull-right">
+                                <label class="createContinue">
+                                    <input type="checkbox" value="1" id="_create" name="_create"
+                                           title="继续添加数据">继续添加</label>
+                            </div>
+                            {/if}
+                            <div class="btn-group">
+                                <button type="submit" class="btn flat btn-info dataFormSubmit">
+                                    保存
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="reset" class="btn flat btn-default dataFormReset">
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    /** 表单验证 **/
+    $('#dataForm').validate({
+        rules: {
+            'title': {
+                required: true,
+            },
+            'content': {
+                required: true,
+            },
+            'content1': {
+                required: true,
+            },
+
+        },
+        messages: {
+            'title': {
+                required: "标题不能为空",
+            },
+            'content': {
+                required: "博物馆简介不能为空",
+            },
+            'content1': {
+                required: "人物简介不能为空",
+            },
+
+        }
+    });
+</script>
+{/block}

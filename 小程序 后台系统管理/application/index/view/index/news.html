@@ -1,0 +1,24 @@
+{include file='public/header' /}
+<div class="currency w__1280">
+    {include file='public/left' /}
+    <div class="currency__right ">
+        <div class="currency__title">
+            <h4>{$navpid['top_title']}</h4>
+        </div>
+        <div class="currency__content list__all">
+            <div class="list__all__heap">
+                {volist name='list' id='user'}
+                <a href="{:url('index/details',['cata_id'=>$user.article_category_id,'id'=>$user.id])}">
+                    <p>{$user.name}</p>
+                    <img id="tp" src="{if $user.new==1}__IMAGES__/首页16-17_03111_03.png{/if}">
+                    <p>{$user.create_time|date='Y-m-d'}</p>
+                </a>
+                {/volist}
+            </div>
+            <div class="list__all__page">
+                {$page|raw}
+            </div>
+        </div>
+    </div>
+</div>
+{include file='public/footer' /}

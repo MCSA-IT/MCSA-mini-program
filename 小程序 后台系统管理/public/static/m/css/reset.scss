@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+img,
+i,
+div,
+a,
+ul,
+li,
+ol,
+dl,
+dt,
+dd,
+table,
+thead,
+tbody,
+tr,
+th,
+td,
+input,
+textarea,
+select,
+sub,
+sup {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul,
+li,
+ol,
+dl,
+dd,
+dt {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.location {
+    position: relative;
+}
+
+input,
+textarea,
+select {
+    outline: 0;
+    border: 0;
+}
+
+ul,
+li,
+ol,
+dl,
+dd,
+dt {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+// 网页限宽
+.w__1280 {
+    width: 100vw;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+// 文本截断
+@mixin overflowText($wh:auto, $lc:1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    display: box;
+    width: $wh;
+    -webkit-line-clamp: $lc;
+    -webkit-box-orient: vertical;
+}
+
+// flex布局
+@mixin flex($al:null, $jc:null) {
+    display: flex;
+    align-items: $al;
+    justify-content: $jc;
+    flex-wrap: wrap;
+}
+
+//header置顶
+%top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #1a56a8;
+    z-index: 999;
+}
+
+//浏览器前缀
+@mixin css3($property, $value) {
+
+    @each $prefix in -webkit-,
+    -moz-,
+    -ms-,
+    -o-,
+    '' {
+        #{$prefix}#{$property}: $value;
+    }
+}
+
+%shadow {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+}

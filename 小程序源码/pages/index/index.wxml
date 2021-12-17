@@ -1,0 +1,52 @@
+<wxs module='filter' src='/lib/filter.wxs'></wxs>
+
+<view class="index_header row_nocenter">
+  <image class="logo" src="/images/logo.png"></image>
+  <image class="header_bg" src="/images/t_03.jpg"></image>
+  <view class="hea_time">
+    <view class="date_time">{{month}}月{{day}}日 星期{{filter.toWeek(week)}}</view>
+    <!-- <view class="row_nostart weather">
+      <image src="/images/cloud.svg"></image>
+      <view>墨尔本今天天气,最高25度，最低15度</view>
+    </view> -->
+  </view>
+</view>
+<view class="banner">
+  <view class="page-section page-section-spacing swiper swiper-container" style="border-radius:10rpx">
+    <swiper class="t_heig" indicator-dots="{{indicatorDots}}" autoplay="{{true}}" circular bindchange='handleSwiper'>
+      <swiper-item class="row_center swiper_list" wx:for="{{banner}}" wx:key="index" catch:tap="handleWeb" data-src='{{item.url}}'>
+        <navigator url="" open-type="navigate">
+          <view class="swi_text">{{item.title}}</view>
+          <image class="swiper-item" style="border-radius:10rpx" src="{{item.img}}"></image>
+        </navigator>
+      </swiper-item>
+    </swiper>
+    <view class="dots swiper_dot">
+      <view class="dot {{index==current?'active':''}}" wx:for="{{banner}}" wx:key="index"></view>
+    </view>
+  </view>
+</view>
+<view class="guide_box">
+  <navigator class="guide row_start"  catch:tap="handleWeb" data-src='{{guide.url}}' url="" open-type="navigate">
+    <text>{{guide.title}}></text>
+    <image src="/images/t_29.png"></image>
+  </navigator>
+</view>
+<view class="general_title row_bw">
+  <view class="gen_ti">精彩活动</view>
+  <navigator class="view_more" url="../index_box/activities/activities" open-type="navigate">
+    查看更多>
+  </navigator>
+</view>
+<view class="activities">
+  <navigator class="act_list row_start" wx:for="{{activity}}" wx:key="index" url="{{'../index_box/activities_xq/activities_xq?id='+item.id}}" open-type="navigate">
+    <view class="act_img">
+      <image src="{{item.img}}"></image>
+    </view>
+    <view class="act_right">
+      <view class="h1">{{item.title}}</view>
+      <text>{{item.des}}</text>
+      <view class="m_time">{{filter.delHour(item.create_time)}}</view>
+    </view>
+  </navigator>
+</view>

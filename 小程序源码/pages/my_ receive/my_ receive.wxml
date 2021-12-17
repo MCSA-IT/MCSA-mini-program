@@ -1,0 +1,97 @@
+<!-- pages/my_ receive/my_ receive.wxml -->
+<view class="mas_bg mas_bg1">
+    <view class="my_receive my_receive1">
+        <view class="text" style="padding:30rpx 0">
+            上传照片
+            <text style="color: #bb3439;">(作为会员卡头像，方便行使折扣时商家进行人员认证)</text>
+        </view>
+        <view class="upload_box">
+            <view class="up_img row_center" catch:tap="handleChooseImage">
+                <image wx:if="{{!tempFilePaths}}" src="/images/upload.svg"></image>
+                <image wx:else mode='widthFix' style="width:100%" src="{{tempFilePaths}}"></image>
+            </view>
+        </view>
+    </view>
+    <view class="my_receive">
+        <view class="my_in_list row_bw">
+            <view class="text">姓名</view>
+            <input type="text" bindinput="handleInput" data-type='1' placeholder="请填写您的姓名" placeholder-class="phcolor" />
+        </view>
+        <view class="my_in_list row_bw item_w">
+            <view class="text">出生日期</view>
+            <picker mode="date" bindchange='handlePicker' data-type='1'>
+                <view class="input_w">
+                    <input type="text" value='{{params.birthday}}' placeholder="请选择" disabled="{{true}}" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw">
+            <view class="text">专业</view>
+            <picker style="width: 80%" range='{{majorList}}' bindchange='handlePicker' data-type='5'>
+                <view class="input_w">
+                    <input type="text" style="width: 100%" value="{{params.discipline}}" disabled="{{true}}" placeholder="请选择" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw">
+            <view class="text">专业<text>(双学位填写)</text></view>
+            <picker style="width: 71%" range='{{majorList_two}}' bindchange='handlePicker' data-type='6'>
+                <view class="input_w">
+                    <input type="text" style="width: 100%" value="{{params.discipline_two}}" disabled="{{true}}" placeholder="请选择" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw item_w">
+            <view class="text">请选择身份</view>
+            <picker range='{{position}}' range-key='value' bindchange='handlePicker' data-type='2'>
+                <view class="input_w">
+                    <input type="text" value='{{params.identity}}' placeholder="请选择" disabled="{{true}}" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw" wx:if="{{params.identity=='毕业生'}}">
+            <view class="text">
+                职业
+                <text>(毕业生填写)</text>
+            </view>
+            <input type="text" bindinput="handleInput" data-type='3' placeholder="请填写您的职业" placeholder-class="phcolor" />
+        </view>
+        <view class="my_in_list row_bw item_w" wx:if="{{params.identity=='毕业生'}}">
+            <view class="text">
+                地区
+                <text>(毕业生填写)</text>
+            </view>
+            <picker mode="region" bindchange='handlePicker' data-type='3'>
+                <view class="input_w">
+                    <input style="width: 100%;" type="text" value='{{params.region}}' placeholder="请选择" disabled="{{true}}" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw">
+            <view class="text">邮箱<text>(在校生请填写 Monash 在校官方邮箱)</text></view>
+            <input type="text" bindinput="handleInput" data-type='4' placeholder="请填写您的邮箱" placeholder-class="phcolor" />
+        </view>
+        <view class="my_in_list row_bw item_w">
+            <view class="text">入学年份</view>
+            <picker mode="date" fields='year' bindchange='handlePicker' data-type='4'>
+                <view class="input_w">
+                    <input type="text" value='{{params.year}}' placeholder="请选择" disabled="{{true}}" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+        <view class="my_in_list row_bw item_w" wx:if="{{params.identity=='毕业生'}}">
+            <view class="text">
+                毕业年份
+                <text>(毕业生填写)</text>
+            </view>
+            <picker mode="date" fields='year' bindchange='handlePicker' data-type='7'>
+                <view class="input_w">
+                    <input type="text" value='{{params.graduation}}' placeholder="请选择" disabled="{{true}}" placeholder-class="phcolor" />
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="tj_but">
+        <button catch:tap="submit">提交</button>
+    </view>
+</view>

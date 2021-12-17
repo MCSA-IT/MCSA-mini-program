@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 苹果手机号码去掉默认蓝色 -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{$tdk['title']}</title>
+    <meta name="description" content="{$tdk['des']}"/>
+    <meta name="keywords" content="{$tdk['key']}"/>
+    <script type="text/javascript" src="__JS__/rem.js"></script>
+    <link rel="stylesheet" type="text/css" href="__CSS__/media.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css">
+    <script type="text/javascript" src="__JS__/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+    <script type="text/javascript" src="__JS__/swiper.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+    <script type="text/javascript" src="/static/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/static/layui/lay/modules/layer.js"></script>
+    <script type="text/javascript">
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+                //window.location.href="http://tax.site.anruiweb.com/";
+            } else {
+                window.location.href="http://tax.site.anruiweb.com/";
+            }
+        }
+        browserRedirect();
+    </script>
+</head>
+
+<body>
+<header>
+    <div class="header w__1280">
+        <form action="/m/index/search" method="get" id="search">
+            <div class="form__input">
+                <input type="text" name="keyword" id="keyword" placeholder="请输入关键词" value="{$keyword|default=''}">
+                <img src="__IMAGES__/首页16-17_04.png" onclick="mysubmit()">
+            </div>
+        </form>
+        <script>
+            function mysubmit() {
+                if($("#keyword").val()==''){
+                    layui.use(['layer', 'form'], function(){
+                        layer.msg('请输入关键词', {
+                            icon: 2,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        });
+                    });
+                    return false;
+                }
+                $("#search").submit();
+            }
+        </script>
+        <div class="menu">
+            <img class="open" src="__IMAGES__/cd.png">
+        </div>
+        <div class="header__time">
+            <p id="nyr"></p>
+            <p id="z"></p>
+        </div>
+    </div>
+</header>
+<div class="navigation w__1280">
+    <ul>
+        <li><a href="/m/">首页</a></li>
+        {foreach $webnav as $k=>$v }
+        <li {if $cata_id==$v.id||$navpid['pid_one']==$v.id}class="navigation__active"{/if}>
+            {if !empty($v.son)}
+                <a href="javascript:;" >{else /}<a href="{:url('Index/active',['cata_id'=>$v.id])}" >{/if}{$v.name}{if !empty($v.son)}{if $cata_id==$v.id||$navpid['pid_one']==$v.id}<span>-</span>{else /}<span>+</span>{/if}{/if}</a>
+                    {if !empty($v.son)}
+            <dl {if $cata_id==$v.id||$navpid['pid_one']==$v.id}style="display: block;"{/if}>
+                {foreach $v['son'] as $kk=>$vv }
+                <dd {if $cata_id==$vv.id||$navpid['pid_two']==$vv.id}class="two__active"{/if}>
+                    {if !empty($vv.son)}<a href="javascript:;" >{else /}{if $vv.parent_id==1}<a href="{:url('Index/active',['cata_id'=>$vv.id])}" >{else /}<a href="{:url('Index/news',['cata_id'=>$vv.id])}" >{/if}{/if}{$vv.name}{if !empty($vv.son)}{if $cata_id==$vv.id||$navpid['pid_two']==$vv.id}<span>-</span>{else /}<span>+</span>{/if}{/if}</a>
+                    {if !empty($vv.son)}
+                    <ol {if $vv.id==$navpid['pid_two']}style="display: block;"{/if}>
+                        {foreach $vv['son'] as $kkk=>$vvv }
+                            <li {if $cata_id==$vvv.id}class="ol__active"{/if}>
+                                <a href="{:url('Index/news',['cata_id'=>$vvv.id])}">{$vvv.name}</a>
+                            </li>
+                        {/foreach}
+                    </ol>
+                    {/if}
+                </dd>
+                {/foreach}
+            </dl>
+            {/if}
+        </li>
+        {/foreach}
+    </ul>
+</div>

@@ -1,0 +1,17 @@
+/* pages/index_box/activities/activities.wxss */
+.acti_box{padding: 30rpx; flex-wrap:wrap;}
+.ac_list{display: block; position: relative;width: 328rpx; height: 245rpx; border-radius: 10rpx;overflow: hidden; margin-bottom:30rpx;}
+.ac_block{position: absolute; bottom: 0;left: 0;right: 0; 
+    background:linear-gradient(to top,rgba(0,0,0,0.6),rgba(0,0,0,0)); height: 70rpx; line-height: 70rpx;padding: 0 20rpx; color: #ffffff;font-size: 26rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+.ac_list image{width: 100%;height: 100%; }
+
+
+
+
+
+
+
+

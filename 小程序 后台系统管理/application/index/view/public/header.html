@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$tdk['title']}</title>
+    <meta name="description" content="{$tdk['des']}"/>
+    <meta name="keywords" content="{$tdk['key']}"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css">
+    <script type="text/javascript" src="__JS__/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+    <script type="text/javascript" src="__JS__/swiper.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+    <script type="text/javascript" src="/static/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/static/layui/lay/modules/layer.js"></script>
+
+    <script type="text/javascript">
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+                window.location.href="http://tax.site.anruiweb.com/m/";
+            } else {
+                //window.location.href="http://tax.site.anruiweb.com/";
+            }
+        }
+        browserRedirect();
+    </script>
+</head>
+
+<body>
+<div class="banner">
+    <img src="{$webinfo['banner']}">
+</div>
+<header>
+    <div class="header w__1280">
+        <ul>
+            <li {if 0==$cata_id}class="header__active"{/if}><a href="/">首页</a></li>
+            {volist name="webnav" id="vo"}
+                <li {if $vo.id==$cata_id||$navpid['pid_one']==$vo.id}class="header__active"{/if}>
+                    {if !empty($vo.son)}
+                        <a href="{:url('index/news',['cata_id'=>$vo.id])}" >
+                    {else /}
+                        <a href="{:url('index/active',['cata_id'=>$vo.id])}" >
+                    {/if}
+                        {$vo.name}
+                    </a>
+                </li>
+            {/volist}
+        </ul>
+        <form action="/index/index/search" method="post" id="search">
+            <div class="form__input">
+                <input type="text" name="keyword" id="keyword" placeholder="请输入关键词" value="{$keyword|default=''}">
+                <img src="__IMAGES__/首页16-17_04.png" onclick="mysubmit()">
+            </div>
+        </form>
+        <script>
+            function mysubmit() {
+                if($("#keyword").val()==''){
+                    layui.use(['layer', 'form'], function(){
+                        var form = layui.form
+                            ,layer = layui.layer;
+                        layer.msg('请输入关键词', {
+                            icon: 2,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        });
+                    });
+                    return false;
+                }
+                $("#search").submit();
+            }
+        </script>
+        <div class="header__time">
+            <p id="nyr"></p>
+            <p id="z"></p>
+        </div>
+    </div>
+</header>

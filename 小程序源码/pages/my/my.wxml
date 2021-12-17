@@ -1,0 +1,50 @@
+<!-- pages/my/my.wxml -->
+<view class="my_header">
+    <view class="my_hd_mid row_start" catch:tap="handleGetUserInfo" wx:if="{{!userInfo.nickname}}">
+        <view class="my_hd_img">
+            <image src="/images/t_41.png"></image>
+        </view>
+        <text>未登录</text>
+    </view>
+    <view class="my_hd_mid row_start" wx:else>
+        <view class="my_hd_img">
+            <image src="{{userInfo.avatar}}"></image>
+        </view>
+        <text>{{userInfo.nickname}}</text>
+    </view>
+    <image class="my_hd_bg" src="/images/t_38.png"></image>
+</view>
+<view class="my_function">
+    <!-- 会员卡 -->
+    <view class="my_vip_card" wx:if="{{userInfo.is_member==1}}">
+        <view class="my_card_t row_start">
+            <view class="car_h">
+                <image src="{{card.img}}"></image>
+            </view>
+            <text>{{card.name}}</text>
+        </view>
+        <image class="card" src="/images/t_47.png"></image>
+    </view>
+    <navigator wx:else class="my_list row_bw" catch:tap="goVip" url="" open-type="navigate">
+        <view class="my_l row_start">
+            <image src="/images/card_vip.svg"></image>
+            <text>领取会员卡</text>
+        </view>
+        <image class="my_r" src="/images/fx.png"></image>
+    </navigator>
+    <navigator class="my_list row_bw" catch:tap="handleWeb" data-src='{{about.url}}' url="" open-type="navigate">
+        <view class="my_l row_start">
+            <image src="/images/face.svg"></image>
+            <text>{{about.title}}</text>
+        </view>
+        <image class="my_r" src="/images/fx.png"></image>
+    </navigator>
+    <navigator class="guide row_start" catch:tap="handleWeb" data-src='{{guide.url}}' url="" open-type="navigate">
+        <text>{{guide.title}}></text>
+        <image src="/images/t_29.png"></image>
+    </navigator>
+    <view class="my_bot">
+        <text>点击下方按钮联系小助手，我们将尽快回复~</text>
+        <button class="row_center" open-type="contact">联系我们</button>
+    </view>
+</view>

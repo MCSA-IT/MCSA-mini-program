@@ -1,0 +1,55 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/my_ receive/my_ receive",
+        "pages/index_box/activities/activities",
+        "pages/index_box/activities_xq/activities_xq",
+        "pages/xyh/xyh",
+        "pages/youh/yh",
+        "pages/youh_xq/youh_xq",
+        "pages/my/my",
+        "pages/login/login",
+        "pages/webView/webView"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "Weixin",
+        "navigationBarTextStyle": "black"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "tabBar": {
+        "selectedColor": "#bb3439",
+        "list": [{
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "/images/home.png",
+                "selectedIconPath": "/images/home_on.png"
+            },
+            {
+                "pagePath": "pages/xyh/xyh",
+                "text": "校友会",
+                "iconPath": "/images/xyu_on.png",
+                "selectedIconPath": "/images/xyu.png"
+            },
+            {
+                "pagePath": "pages/youh/yh",
+                "text": "优惠",
+                "iconPath": "/images/juan_on.png",
+                "selectedIconPath": "/images/juan.png"
+            },
+            {
+                "pagePath": "pages/my/my",
+                "text": "我的",
+                "iconPath": "/images/my_on.png",
+                "selectedIconPath": "/images/my.png"
+            }
+        ]
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    }
+}

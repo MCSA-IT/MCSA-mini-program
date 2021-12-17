@@ -1,0 +1,24 @@
+{include file='public/header' /}
+<div class="crumbs w__1280">
+<!--    <dl>-->
+<!--        <dt><img src="__IMAGES__/研究会简介_03.png" alt="">当前位置：</dt>-->
+<!--        <dd>-->
+<!--            <a href="/m/">首页 &gt; </a>-->
+<!--        </dd>-->
+<!--        {$mbx|raw}-->
+<!--    </dl>-->
+</div>
+
+<div class="list__details w__1280">
+    <h3>{$info['name']}</h3>
+    <div class="list__details__title">
+        <div class="list__details__left">
+            <p>发布时间：{$info['create_time']}</p>
+            <p>来源：{$info['ly']}</p>
+        </div>
+    </div>
+    <div class="list__details__content">
+        {$info['content']|raw}
+    </div>
+</div>
+{include file='public/footer' /}

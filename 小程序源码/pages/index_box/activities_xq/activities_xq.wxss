@@ -1,0 +1,52 @@
+/* pages/index_box/activities_xq/activities_xq.wxss */
+
+.act_bigimg {
+    margin-bottom: 30rpx;
+    border-radius: 10rpx;
+    overflow: hidden;
+    height: 730rpx;
+    width: 547.5rpx;
+    margin: 0 auto;
+}
+
+.act_bigimg image {
+    width: 100%;
+    height: 100%;
+}
+
+.act_introduce {
+    background: #ffffff;
+    border-radius: 10rpx;
+    padding: 30rpx;
+}
+
+.act_introduce .ac_timg {
+    font-size: 24rpx;
+    color: #999999;
+}
+
+.act_introduce .ac_h1 {
+    font-size: 34rpx;
+    font-weight: bold;
+    color: #333333;
+    padding: 30rpx 0;
+}
+
+.act_introduce .ac_text {
+    font-size: 26rpx;
+    line-height: 36rpx;
+    color: #333333;
+}
+
+.act_bm {
+    width: 80% !important;
+    height: 90rpx;
+    text-align: center;
+    line-height: 90rpx;
+    font-size: 30rpx;
+    color: #ffffff;
+    background: #bb3439;
+    border-radius: 10rpx;
+    margin: 40rpx auto;
+    padding: 0;
+}

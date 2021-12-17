@@ -1,0 +1,25 @@
+<div class="navigation">
+    <ul>
+        {foreach $webnav as $k=>$v }
+        <li {if $cata_id==$v.id||$navpid['pid_one']==$v.id}class="navigation__active"{/if}>
+            {if !empty($v.son)}<a href="javascript:;" >{else /}<a href="{:url('index/active',['cata_id'=>$v.id])}" >{/if}{$v.name}{if !empty($v.son)}{if $cata_id==$v.id||$navpid['pid_one']==$v.id}<span>-</span>{else /}<span>+</span>{/if}{/if}</a>
+            {if !empty($v.son)}
+            <dl>
+                {foreach $v['son'] as $kk=>$vv }
+                <dd {if $cata_id==$vv.id||$navpid['pid_two']==$vv.id}class="two__active"{/if}>
+                    {if !empty($vv.son)}<a href="javascript:;" >{else /}{if $vv.parent_id==1}<a href="{:url('index/active',['cata_id'=>$vv.id])}" >{else /}<a href="{:url('index/news',['cata_id'=>$vv.id])}" >{/if}{/if}{$vv.name}{if !empty($vv.son)}{if $cata_id==$vv.id||$navpid['pid_two']==$vv.id}<span>-</span>{else /}<span>+</span>{/if}{/if}</a>
+                    {if !empty($vv.son)}
+                    <ol {if $vv.id==$navpid['pid_two']}style="display: block;"{/if}>
+                        {foreach $vv['son'] as $kkk=>$vvv }
+                        <li {if $cata_id==$vvv.id}class="ol__active"{/if}><a href="{:url('index/active',['cata_id'=>$vvv.id])}">{$vvv.name}</a></li>
+                        {/foreach}
+                    </ol>
+                    {/if}
+                </dd>
+                {/foreach}
+            </dl>
+            {/if}
+        </li>
+        {/foreach}
+    </ul>
+</div>

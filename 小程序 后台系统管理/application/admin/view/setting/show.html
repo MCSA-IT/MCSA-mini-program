@@ -1,0 +1,122 @@
+<!--空白页面参考模版-->
+{extend name="public/base" /}
+{block name='content'}
+{include file='public/content_header' /}
+<section class="content">
+    <div class="row" style="display: none;">
+        <div class="col-md-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <div class="btn-group">
+                        <a class="btn flat btn-sm btn-default BackButton">
+                            <i class="fa fa-arrow-left"></i>
+                            返回
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    {foreach name='data_config' id='item'}
+                    <li {if $key==0}class="active"{/if}><a href="#tab_{$key}" data-toggle="tab">{$item.name}</a></li>
+                    {/foreach}
+                </ul>
+                <div class="tab-content">
+                    {foreach name='data_config' id='item'}
+                    <div class="tab-pane {if $key==0}active{/if}" id="tab_{$key}">
+
+                        <form class="form-horizontal dataForm" action="{:url('setting/update')}" method="post"
+                              enctype="multipart/form-data">
+                            <div class="box-body">
+                                <input name="id" value="{$item.id}" hidden>
+
+                                {foreach name='item.content' id='data' key='kk'}
+                                {if $data.field!='product_img'}
+                                {$data.form|raw}
+                                {else}
+                                {$data.form|raw}
+                                    <div class="form-group">
+                                        <label for="product_img" class="col-sm-2 control-label">产品中心banner</label>
+                                        <div class="col-sm-10">
+                                            <input id="product_img" name="product_img[]"  placeholder="请上传产品中心banner" multiple="multiple" type="file" class="form-control field-multi-image" >
+                                        </div>
+                                    </div>
+                                    <script>
+                                    $(function() {
+                                        $('#product_img').fileinput({
+                                            "initialPreview":false,
+                                            overwriteInitial: true,
+                                            language: 'zh',
+                                            browseLabel: '浏览',
+                                            initialPreviewAsData: true,
+                                            initialPreviewShowDelete:false,
+                                            dropZoneEnabled: false,
+                                            showUpload:false,
+                                            showRemove: false,
+                                            allowedFileTypes:['image'],
+                                            //默认限制10M
+                                            maxFileSize:10240,
+                                            {if isset($data)}
+                                            initialPreview:{$data['content']|raw},
+                                            {/if}
+                                            fileActionSettings: {                               // 在预览窗口中为新选择的文件缩略图设置文件操作的对象配置
+                                                showRemove: false,                                   // 显示删除按钮
+                                                showUpload: true,                                   // 显示上传按钮
+                                                showDownload: true,                            // 显示下载按钮
+                                                showZoom: true,                                    // 显示预览按钮
+                                                showDrag: false,                                        // 显示拖拽
+                                                removeIcon: '<i class="fa fa-trash"></i>',   // 删除图标
+                                                uploadIcon: '<i class="fa fa-upload"></i>',     // 上传图标
+                                                uploadRetryIcon: '<i class="fa fa-repeat"></i>'  // 重试图标
+                                            },
+                                        });
+                                    })
+                                    </script>
+                                {/if}
+                                {/foreach}
+
+                            </div>
+
+                            <!--表单底部-->
+                            <div class="box-footer">
+                                {:token()}
+                                <div class="col-sm-2">
+                                </div>
+                                <div class="col-sm-10 col-md-4">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn flat btn-info dataFormSubmit">
+                                            保存
+                                        </button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="reset" class="btn flat btn-default dataFormReset">
+                                            重置
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    {/foreach}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $.each($('.dataForm'), function (index, item) {
+        $(item).validate({});
+    })
+</script>
+
+{/block}

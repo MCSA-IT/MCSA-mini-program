@@ -1,0 +1,111 @@
+<block wx:if="{{showFlag}}">
+    <view class="mas_bg">
+        <view class="tabs_nav row_bw">
+            <view class="{{index==current?'on':''}}" catch:tap="handleMenu" data-index='{{index}}' wx:for="{{menuList}}" wx:key="index">
+                {{item.text}}
+            </view>
+        </view>
+        <block wx:if="{{current==0}}">
+            <view class="tabs tabs1">
+                <view class="community">
+                    <navigator class="com_list row_bw" catch:tap="handleWeb" data-src='{{item.url}}' wx:for="{{list}}" wx:key="index">
+                        <view class="row_start com_l">
+                            <view class="com_left">
+                                <image src="/images/gg.png"></image>
+                            </view>
+                            <view class="com_text">{{item.title}}</view>
+                        </view>
+                        <image class="fx" src="/images/fx.png"></image>
+                    </navigator>
+                </view>
+                <view class="code_t row_bw">
+                    <view class="code_b column_center" wx:for="{{qrList}}" wx:key="index">
+                        <view class="tt_img">
+                            <image src="{{item.img}}"></image>
+                        </view>
+                        <text>{{item.title}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{current == 1}}">
+            <view class="tabs tabs2">
+                <view class="search_box row_start">
+                    <image class="search_img" src="/images/search.png"></image>
+                    <input catchinput="handleInput" style="width: 100%;padding-right: 10rpx;" type="text" placeholder="可按姓名、地区、入学年份搜索" />
+                    <text class="search_btn" wx:if="{{flag}}" catch:tap="handleSearch">搜索</text>
+                </view>
+                <view class="forum_box" catch:tap="globalPublish">
+                    <!-- 1 -->
+                    <view class="forum_list" wx:for="{{list}}" wx:key="index">
+                        <view class="for_top row_start">
+                            <view class="for_head_portrait">
+                                <image src="{{item.avatar?item.avatar:'/images/images/t_26.png'}}"></image>
+                            </view>
+                            <view class="for_header_Introduction">
+                                <view class="row_start for_header_Int_top">
+                                    <view class="h1">{{item.nickname}}</view>
+                                    <image wx:if="{{item.gender==1}}" class="img" src="/images/boy.svg"></image>
+                                    <image wx:else class="img" src="/images/girl.svg"></image>
+                                    <view class="add">
+                                        {{item.country+item.province+item.city}}
+                                    </view>
+                                </view>
+                                <view class="row_start for_header_Int_bot">
+                                    <!-- <view class="row_start">
+                                        <image src="/images/phone.svg"></image>
+                                        <text>{{item.mobile}}</text>
+                                    </view> -->
+                                    <view class="row_start" wx:if="{{item.email}}">
+                                        <image src="/images/mail.svg"></image>
+                                        <text>{{item.email}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="for_bot">
+                            <view class="Publish_content">{{item.content}}</view>
+                            <view class="Time_reply row_start">
+                                <view class="time">
+                                    {{item.create_time?item.create_time:'1秒前'}}
+                                </view>
+                                |
+                                <view class="reply" catch:tap="handleReplay" data-forumid='{{item.id}}'>
+                                    回复TA
+                                </view>
+                                <!-- 有评论数的时候才显示这个按钮 -->
+                                <view class="reply" wx:if="{{item.son_count}}" catch:tap="handleMore" data-forumid='{{item.id}}'>
+                                    | 查看更多
+                                </view>
+                            </view>
+                        </view>
+                        <!-- 回复 -->
+                        <view class="Other_reply" wx:if="{{forumId==item.id}}">
+                            <view class="oth_rep_list" wx:for="{{replayList}}" wx:for-item="ele" wx:for-index="idx" wx:key="idx">
+                                <view class="row_start">
+                                    <text class="o_h1">{{ele.nickname}}</text>
+                                    <text class="o_time">{{ele.create_time}}</text>
+                                </view>
+                                <view class="te">{{ele.content}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <!-- 发布/回复 -->
+                <view class="reply_box row_center">
+                    <view class="editor row_start" style="padding-left: 20rpx">
+                        <image class="bj" src="/images/bj.png"></image>
+                        <input cursor-spacing='10' focus='{{focus}}' confirm-type='send' catchinput="handlePublish" bindconfirm='publish' class="input_bj" value='{{publishValue}}' maxlength='-1' type="text" placeholder="{{publishOrReplay?'回复：':'发布论坛'}}" />
+                        <text wx:if="{{publishFlag}}" catch:tap="publish" class="publish">
+                            {{publishOrReplay?'回复':'发布'}}
+                        </text>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+</block>
+<view class="no_login" wx:else>
+    <navigator url='/pages/login/login'>登录</navigator>
+    <text>后可查看哦~</text>
+</view>
